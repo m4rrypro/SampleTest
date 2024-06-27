@@ -30,7 +30,7 @@ sample/
 ### Step 1: Clone the Repository
 
 ```sh
-git clone https://github.com/yourusername/sample.git
+git clone https://github.com/m4rrypro/SampleTest.git
 cd sample
 ```
 
