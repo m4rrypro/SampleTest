@@ -3,6 +3,7 @@
 This project demonstrates a multi-stage Docker setup for a React application served with Nginx, alongside running Adminer and PostgreSQL in a Docker Compose environment. It includes instructions on how to set up and run the application.
 
 ## Project Structure
+```
 sample/
 ├── backend/
 │ ├── app.js
@@ -18,6 +19,7 @@ sample/
 │ └── .env
 ├── docker-compose.yml
 └── README.md
+```
 
 ## Prerequisites
 
