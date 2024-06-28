@@ -19,11 +19,7 @@ jobs:
 
       - name: Log in to Coder
         run: coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
-        
+
       - name: Deploy with Docker Compose
         run: |
-          coder ssh -- bash -c "
-            cd /home/coder/SampleTest
-            docker-compose down
-            docker-compose up --build -d
-          "
+          coder ssh -- "cd /home/coder/SampleTest && docker-compose down && docker-compose up --build -d"
