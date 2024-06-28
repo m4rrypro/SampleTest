@@ -28,7 +28,9 @@ jobs:
         run: echo "ENV_ID=$(coder envs ls --json | jq -r '.[] | select(.name == "SampleTest") | .id')" >> $GITHUB_ENV
 
       - name: Stop current Docker Compose services
-        run: coder env exec ${{ env.ENV_ID }} -- docker-compose -f /home/coder/SampleTest/docker-compose.yml down
+        run: |
+          coder envs exec ${{ env.ENV_ID }} -- bash -c "docker-compose -f /home/coder/SampleTest/docker-compose.yml down"
 
       - name: Deploy with Docker Compose
-        run: coder env exec ${{ env.ENV_ID }} -- docker-compose -f /home/coder/SampleTest/docker-compose.yml up --build -d
+        run: |
+          coder envs exec ${{ env.ENV_ID }} -- bash -c "docker-compose -f /home/coder/SampleTest/docker-compose.yml up --build -d"
