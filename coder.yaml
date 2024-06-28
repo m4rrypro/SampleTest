@@ -3,4 +3,4 @@ env:
   image: your-docker-image
   services:
     - name: web
-      command: docker-compose up -d
+      command: docker-compose up --build
