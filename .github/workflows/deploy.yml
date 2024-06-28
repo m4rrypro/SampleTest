@@ -22,5 +22,5 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-           ssh user@vm_address "[ -d /home/coder/SampleTest ] && cd /home/coder/SampleTest && coder.SampleTest && docker-compose down && docker-compose up --build -d || echo 'Directory does not exist'"
+           ssh coder.SampleTest "[ -d /home/coder/SampleTest ] && cd /home/coder/SampleTest && coder.SampleTest && docker-compose down && docker-compose up --build -d || echo 'Directory does not exist'"
 
