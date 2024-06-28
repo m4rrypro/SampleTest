@@ -22,4 +22,4 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          coder ssh -- "cd /home/coder/SampleTest && docker-compose down && docker-compose up --build -d"
+          coder ssh -- "cd SampleTest && docker-compose down && docker-compose up --build -d"
