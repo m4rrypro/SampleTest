@@ -23,4 +23,4 @@ jobs:
 
       - name: Deploy to Coder
         run: |
-          coder envs apply my-env --project my-project --file coder.yaml
+          coder envs apply --project my-project --file coder.yaml
