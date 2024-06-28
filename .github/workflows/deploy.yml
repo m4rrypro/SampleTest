@@ -10,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Install Coder CLI
+        run: |
+          curl -fsSL https://coder.com/install.sh | sh
 
-    - name: Deploy to Coder
-      run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.CODER_USERNAME }}@${{ secrets.CODER_HOST }} << EOF
-          cd /path/to/your/app
-          git pull origin main
-          docker-compose down
-          docker-compose up -d
-        EOF
+      - name: Configure Coder CLI
+        run: |
+          coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
+          coder config set default.url ${{ secrets.CODER_URL }}
+          coder config set default.token ${{ secrets.CODER_SESSION_TOKEN }}
+
+      - name: Deploy to Coder
+        run: |
+          coder envs apply my-env --project my-project --file coder.yaml
