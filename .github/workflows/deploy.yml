@@ -17,11 +17,9 @@ jobs:
         run: |
           curl -fsSL https://coder.com/install.sh | sh
 
-      - name: Configure Coder CLI
+      - name: Authenticate with Coder
         run: |
           coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
-          coder config set default.url ${{ secrets.CODER_URL }}
-          coder config set default.token ${{ secrets.CODER_SESSION_TOKEN }}
 
       - name: Deploy to Coder
         run: |
