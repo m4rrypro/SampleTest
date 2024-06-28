@@ -22,7 +22,7 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          ssh coder.SampleTest << 'EOF'
+          ssh -t coder.SampleTest 'bash -s' << 'EOF'
             if [ -d /home/coder/SampleTest ]; then
               cd /home/coder/SampleTest
               docker-compose down
