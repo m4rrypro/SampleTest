@@ -22,4 +22,4 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          coder ssh -- "ssh coder.SampleTest && docker-compose down && docker-compose up --build -d"
+          coder ssh -- "coder.SampleTest && docker-compose down && docker-compose up --build -d"
