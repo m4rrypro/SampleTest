@@ -23,10 +23,12 @@ jobs:
       - name: Log in to Coder
         run: coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
 
+      - name: Get Coder Environment ID
+        id: env_id
+        run: echo "ENV_ID=$(coder envs ls --json | jq -r '.[] | select(.name == "SampleTest") | .id')" >> $GITHUB_ENV
+
+      - name: Stop current Docker Compose services
+        run: coder env exec ${{ env.ENV_ID }} -- docker-compose -f /home/coder/SampleTest/docker-compose.yml down
+
       - name: Deploy with Docker Compose
-        run: |
-          coder env exec -- bash -c "
-            cd /home/coder/SampleTest
-            docker-compose down
-            docker-compose up --build -d
-          "
+        run: coder env exec ${{ env.ENV_ID }} -- docker-compose -f /home/coder/SampleTest/docker-compose.yml up --build -d
