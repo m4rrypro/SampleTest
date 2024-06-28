@@ -21,7 +21,7 @@ jobs:
           curl -fsSL https://coder.com/install.sh | sh
 
       - name: Log in to Coder
-        run: coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_TOKEN }}
+        run: coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
         
       - name: Deploy with Docker Compose
         run: |
