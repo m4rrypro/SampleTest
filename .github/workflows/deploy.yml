@@ -24,11 +24,9 @@ jobs:
         run: coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
 
       - name: Deploy with Docker Compose
-        env:
-          CODER_HOST: ${{ secrets.CODER_HOST }}
         run: |
-          ssh -o StrictHostKeyChecking=no coder@${{ env.CODER_HOST }} << EOF
+          coder env exec -- bash -c "
             cd /home/coder/SampleTest
             docker-compose down
             docker-compose up --build -d
-          EOF
+          "
