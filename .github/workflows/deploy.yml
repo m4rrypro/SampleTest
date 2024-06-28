@@ -13,24 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v1
-
       - name: Install coder CLI
         run: |
           curl -fsSL https://coder.com/install.sh | sh
 
       - name: Log in to Coder
         run: coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
-
-      - name: Get Coder Environment ID
-        id: env_id
-        run: echo "ENV_ID=$(coder envs ls --json | jq -r '.[] | select(.name == "SampleTest") | .id')" >> $GITHUB_ENV
-
-      - name: Stop current Docker Compose services
-        run: |
-          coder envs exec ${{ env.ENV_ID }} -- bash -c "docker-compose -f /home/coder/SampleTest/docker-compose.yml down"
-
+        
       - name: Deploy with Docker Compose
         run: |
-          coder envs exec ${{ env.ENV_ID }} -- bash -c "docker-compose -f /home/coder/SampleTest/docker-compose.yml up --build -d"
+          coder ssh -- bash -c "
+            cd /home/coder/SampleTest
+            docker-compose down
+            docker-compose up --build -d
+          "
