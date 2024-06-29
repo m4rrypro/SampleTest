@@ -17,17 +17,19 @@ jobs:
         run: |
           curl -fsSL https://coder.com/install.sh | sh
 
-      - name: Log in to Coder
-        run: coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
+      - name: Configure Coder
+        run: |
+          coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
+          # adds coder workspace Host to ~/.ssh/config
+          coder config-ssh
 
       - name: Deploy with Docker Compose
         run: |
-          ssh -o StrictHostKeyChecking=no coder.SampleTest << 'EOF'
-            if [ -d /home/coder/SampleTest ]; then
-              cd /home/coder/SampleTest
-              docker-compose down
-              docker-compose up --build -d
-            else
-              echo 'Directory does not exist'
-            fi
+          ssh coder.SampleTest 'mkdir -p ~/SampleTest'
+          scp * coder.test:~/SampleTest
+          ssh coder.SampleTest << 'EOF'
+            cd ~/SampleTest
+            docker-compose down
+            docker-compose up --build -d
+            cd -
           EOF
