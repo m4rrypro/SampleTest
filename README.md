@@ -9,16 +9,17 @@ sample/
 │ ├── app.js
 │ ├── Dockerfile
 │ ├── package.json
-│ ├── package-lock.json
-│ └── .env
+│ └──  package-lock.json
+│ 
 ├── web/
 │ ├── public/
 │ ├── src/
 │ ├── Dockerfile
-│ ├── nginx.conf
-│ └── .env
+│ └──  nginx.conf
+│ 
 ├── docker-compose.yml
-└── README.md
+├── README.md
+└── .env
 ```
 
 ## Prerequisites
@@ -37,14 +38,15 @@ cd sample
 ```
 
 ### Step 2: Environment Variables
-Create a .env file in the backend and web directories with the following variables:
+Create a .env file in the root directory with the following variables:
 
-#### For backend/.env:
+#### For backend:
 
 - DATABASE_URL
 - PORT
-#### For web/.env:
+#### For web:
 - REACT_APP_API_URL
+- 
 ### Step 3: Build and Run with Docker Compose
 Ensure Docker and Docker Compose are installed and running on your system. Then, run the following command to build and start the services:
 ```sh
@@ -71,7 +73,7 @@ The automation process for this project ensures that the application is continuo
 ### Continuous Deployment (CD)
 
 - Upon successful CI, the application is deployed to a development environment using Coder.
-- The output link for the deployed application is: [https://8080--dev--sampletest--m4rrypro--apps.atif.cdr.dev/login](https://8080--dev--sampletest--m4rrypro--apps.atif.cdr.dev/login)
+- The output link for the deployed application is: [Live Preview](https://8080--dev--sampletest--m4rrypro--apps.atif.cdr.dev/login)
 
 
 ### Contribution
