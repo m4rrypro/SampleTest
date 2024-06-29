@@ -27,6 +27,8 @@ sample/
 - Docker
 - Docker Compose
 - Node.js
+- Coder VM server
+- Github Action
 
 ## Setup Instructions
 
