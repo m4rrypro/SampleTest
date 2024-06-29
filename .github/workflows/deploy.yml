@@ -22,6 +22,10 @@ jobs:
           coder login ${{ secrets.CODER_URL }} --token ${{ secrets.CODER_SESSION_TOKEN }}
           # adds coder workspace Host to ~/.ssh/config
           coder config-ssh
+    
+      - uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: false
 
       - name: Deploy with Docker Compose
         run: |
