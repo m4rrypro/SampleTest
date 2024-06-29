@@ -27,7 +27,7 @@ jobs:
         run: |
           ssh coder.SampleTest 'mkdir -p ~/SampleTest'
           # copy the repo to workspace host
-          scp * coder.SampleTest:~/SampleTest
+          scp -r * coder.SampleTest:~/SampleTest
           ssh coder.SampleTest << 'EOF'
             cd ~/SampleTest
             docker-compose down
