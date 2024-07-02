@@ -1,26 +1,31 @@
+require('dotenv').config();
+
 module.exports = {
-
-    development: {
-        client: "postgresql",
-        connection: "postgres://" + process.env.POSTGRES_USERNAME + ":" + process.env.POSTGRES_PASSWORD + "@" + process.env.POSTGRES_HOST + "/" + process.env.POSTGRES_DATABASE,
-        migrations: {
-            directory: __dirname + "/db/migrations",
-        },
-        seeds: {
-            directory: __dirname + "/db/seeds"
-        }
-
+  development: {
+    client: 'postgresql',
+    connection: {
+      host: process.env.POSTGRES_HOST,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
+      charset: 'utf8'
     },
-
-    production: {
-        client: "postgresql",
-        connection: process.env.DATABASE_URL,
-        migrations: {
-            directory: __dirname + "/db/migrations",
-        },
-        seeds: {
-            directory: __dirname + "/db/seeds"
-        }
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds'
     }
+  },
 
-}
+  production: {
+    client: 'postgresql',
+    connection: process.env.DATABASE_URL,
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds'
+    }
+  }
+};

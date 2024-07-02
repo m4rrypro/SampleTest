@@ -13,6 +13,9 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Copy the .env file
+COPY .env .env
+
 # Set environment variable for the port
 ENV PORT=4000
 
@@ -27,3 +30,6 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Define the entrypoint script
 ENTRYPOINT ["docker-entrypoint.sh"]
+
+# Start the application
+CMD ["npm", "start"]

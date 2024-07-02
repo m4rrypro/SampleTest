@@ -1,9 +1,14 @@
-const { Model } = require("objection");
+const db = require('../db/DatabaseConfig').db;
 
-class Users extends Model {
-	static get tableName() {
-		return 'users'
-	}
-}
+const createUser = async (userData) => {
+  try {
+    await db('users').insert(userData);
+  } catch (error) {
+    console.error('Error creating user:', error);
+    throw error;
+  }
+};
 
-module.exports = { Users }
+module.exports = {
+  createUser
+};

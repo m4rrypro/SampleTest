@@ -1,19 +1,23 @@
-const Knex = require("knex");
-const knexConfig = require("../knexfile");
-const { Model } = require("objection");
+const knex = require('knex');
+const knexConfig = require('../knexfile');
+const environment = process.env.NODE_ENV || 'development';
+const db = knex(knexConfig[environment]);
 
-//Knex Configuration
-const knex = Knex(knexConfig.development);
-
-const initializeDB = function () {
-
-	//Initialize knex Model
-	Model.knex(knex);
-
+const initializeDB = async () => {
+  try {
+    // Run migrations
+    await db.migrate.latest();
+    console.log('Migrations completed');
+    
+    // Run seeds
+    await db.seed.run();
+    console.log('Seeding completed');
+  } catch (error) {
+    console.error('Error initializing database:', error);
+  }
 };
 
-const destroyKnex = function () {
-	knex.destroy();
+module.exports = {
+  db,
+  initializeDB
 };
-
-module.exports = { initializeDB, destroyKnex };
